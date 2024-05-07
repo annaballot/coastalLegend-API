@@ -84,3 +84,12 @@ export const JwtAuth = Joi.object()
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
   })
   .label("Jwt Authentification");
+
+
+
+export const categorySpec = {
+  category: Joi.string().optional(),
+  };
+
+
+
