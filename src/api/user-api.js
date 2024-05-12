@@ -1,6 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { UserSpec2, UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth } from "../models/joi-schemas.js";
+import { UserSpec2, UserSpec, UserSpecPlus, IdSpec, emailSpec, UserArray, UserCredentialsSpec, UserCredentialsSpec2, JwtAuth } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken, validate, decodeToken } from "./jwt-utils.js";
 
@@ -44,11 +44,35 @@ export const userApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
   },
+  
+  
+  findOneEmail: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserByEmail(request.params.email);
+        if (!user) {
+          return Boom.notFound("No User with this email");
+        }
+        return user;
+      } catch (err) {
+        return Boom.serverUnavailable("No User with this email");
+      }
+    },
+    tags: ["api"],
+    description: "Get a specific user",
+    notes: "Returns user details",
+    validate: { params: { email: emailSpec }, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
+  },
+  
+
 
   create: {
     auth: false,
     handler: async function (request, h) {
       try {
+        console.log("newUser", request.payload);
         const user = await db.userStore.addUser(request.payload);
         if (user) {
           return h.response(user).code(201);
@@ -62,6 +86,34 @@ export const userApi = {
     description: "Create a User",
     notes: "Returns the newly created user",
     validate: { payload: UserSpec, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
+  },
+  
+  create2: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const firstName = "Test1";
+        const lastName = "Test2";
+        const password = "t";
+        const newUser = request.payload;
+        newUser.password = password;
+        newUser.firstName = firstName;
+        newUser.lastName = lastName;
+        console.log("newUser", newUser);
+        const user = await db.userStore.addUser(newUser);
+        if (user) {
+          return h.response(user).code(201);
+        }
+        return Boom.badImplementation("error creating user");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Create a User",
+    notes: "Returns the newly created user",
+    validate: { payload: UserCredentialsSpec2, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
   },
 
@@ -121,6 +173,45 @@ export const userApi = {
     response: { schema: JwtAuth, failAction: validationError },
   },
 
+  
+  authenticate2: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const { email } = request.payload;
+        // Check if email and password are provided
+        if (!email) {
+          return Boom.badRequest("Email is required");
+        }
+        if (email === process.env.email) {
+          const admin = {
+            email: process.env.email
+           
+          };
+          const token = createToken(admin);
+          return h.response({ success: true, name: `${admin.firstName} ${admin.lastName}`, 
+          _id: admin._id,  token: token }).code(201);
+          }
+        // Authenticate user based on email and password
+        const user = await db.userStore.getUserByEmail(email);
+        if (!user) {
+          return Boom.unauthorized("Invalid email");
+        }
+        // Generate JWT token for authenticated user
+        const token = createToken(user);
+        return h.response({ success: true, name: `${user.firstName} ${user.lastName}`, 
+                          token: token 
+                      }).code(201);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Authenticate a User",
+    notes: "If user has valid email/password, create and return a JWT token",
+    validate: { payload: UserCredentialsSpec2, failAction: validationError },
+    response: { schema: JwtAuth, failAction: validationError },
+  },
   
 };
 

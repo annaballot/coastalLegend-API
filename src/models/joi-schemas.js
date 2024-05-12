@@ -2,10 +2,18 @@ import Joi from "joi";
 
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
+export const emailSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid Email");
+
 export const UserCredentialsSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("homer@simpson.com").required(),
     password: Joi.string().example("secret").required(),
+  })
+  .label("UserCredentials");
+
+export const UserCredentialsSpec2 = Joi.object()
+  .keys({
+    email: Joi.string().email().example("homer@simpson.com").required()
   })
   .label("UserCredentials");
 
@@ -17,6 +25,7 @@ export const UserSpec = UserCredentialsSpec.keys({
 export const UserSpec2 = UserCredentialsSpec.keys({
   name: Joi.string().example("Homer Simpson").required(),
 }).label("UserDetails2");
+
 
 export const UserSpecPlus = UserSpec.keys({
   _id: IdSpec,

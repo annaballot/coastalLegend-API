@@ -2,16 +2,16 @@
 export const seedData = {
     users: {
       _model: "User",
+      anna: {
+        firstName: "Anna",
+        lastName: "Ballot",
+        email: "annaballot@gmail.com",
+        password: "secret"
+      },
       homer: {
         firstName: "Homer",
         lastName: "Simpson",
         email: "homer@simpson.com",
-        password: "secret"
-      },
-      marge: {
-        firstName: "Marge",
-        lastName: "Simpson",
-        email: "marge@simpson.com",
         password: "secret"
       },
       bart: {
@@ -25,15 +25,15 @@ export const seedData = {
       _model: "List",
       faveBeaches: {
         title: "Favourite Beaches",
-        userid: "->users.homer"
+        userid: "->users.anna"
       },
       munsterFavourites: {
         title: "Munster Favourites",
-        userid: "->users.homer"
+        userid: "->users.anna"
       },
       placesNotYetVisited: {
         title: "Places Not Yet Visited",
-        userid: "->users.Marge"
+        userid: "->users.homer"
       }
     },
     placemarks: {
@@ -46,7 +46,7 @@ export const seedData = {
         longitude: -7.544396,
         rating: 8,
         img: "https://res.cloudinary.com/dloycvswk/image/upload/v1714496692/uvagfsaikoletstdt3sl.jpg",
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.faveBeaches"
       },
       placemark2 : {
@@ -56,7 +56,7 @@ export const seedData = {
         latitude: 52.139158,
         longitude: -7.319156,
         rating: 9,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.faveBeaches"
       },
       placemark3 : {
@@ -66,7 +66,7 @@ export const seedData = {
         latitude: 51.947993,
         longitude: -7.708807,
         rating: 8,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark4 : {
@@ -77,7 +77,7 @@ export const seedData = {
         longitude: -6.995002,
         rating: 7,
         img: "https://res.cloudinary.com/dloycvswk/image/upload/v1714753837/xsfqtb7tw1wbsji8d5qo.jpg",
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark5 : {
@@ -87,7 +87,7 @@ export const seedData = {
         latitude: 52.140717,
         longitude: -9.982297,
         rating: 6,
-        userid: "->users.marge",
+        userid: "->users.homer",
         listid: "->lists.placesNotYetVisited"
       },
       placemark6 : {
@@ -97,7 +97,7 @@ export const seedData = {
         latitude: 52.933300,
         longitude: -9.348076,
         rating: 7,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark7 : {
@@ -108,7 +108,7 @@ export const seedData = {
         longitude: -7.164781,
         rating: 9,
         img: "https://res.cloudinary.com/dloycvswk/image/upload/v1714752195/rrxlh3ipfqugqa40wbjs.png",
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark8 : {
@@ -118,7 +118,7 @@ export const seedData = {
         latitude: 51.943535,
         longitude: -7.709990,
         rating: 6,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark9 : {
@@ -128,7 +128,7 @@ export const seedData = {
         latitude: 51.596707,
         longitude: -8.863225,
         rating: 10,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark10 : {
@@ -138,7 +138,7 @@ export const seedData = {
         latitude: 51.468918,
         longitude: -9.777127,
         rating: 6,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark11 : {
@@ -148,7 +148,7 @@ export const seedData = {
         latitude: 52.138145,
         longitude: -7.366060,
         rating: 7,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark12 : {
@@ -158,7 +158,7 @@ export const seedData = {
         latitude: 52.135148,
         longitude: -6.910469,
         rating: 8,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.munsterFavourites"
       },
       placemark13 : {
@@ -168,7 +168,7 @@ export const seedData = {
         latitude: 52.099274,
         longitude: -7.537924,
         rating: 7,
-        userid: "->users.homer",
+        userid: "->users.anna",
         listid: "->lists.faveBeaches"
       },
     }

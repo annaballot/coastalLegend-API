@@ -7,8 +7,12 @@ export const apiRoutes = [
   { method: "POST", path: "/api/users", config: userApi.create },
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
   { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
+  { method: "POST", path: "/api/users2", config: userApi.create2 },
+  { method: "GET", path: "/api/users2/{email}", config: userApi.findOneEmail },
+  
 
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
+   { method: "POST", path: "/api/users/authenticate2", config: userApi.authenticate2 },
 
   // { method: "POST", path: "/api/lists", config: listApi.create },
   // { method: "DELETE", path: "/api/lists", config: listApi.deleteAll },
